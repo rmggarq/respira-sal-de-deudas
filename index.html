@@ -435,5 +435,39 @@
 
 
 
+
+<!-- RESPIRA_META_EVENTS_V1 -->
+<script>
+(function () {
+  function trackViewContent() {
+    if (typeof window.fbq !== "function") return;
+    window.fbq("track", "ViewContent", {
+      content_name: "RESPIRA: Sal de Deudas",
+      content_category: "software"
+    });
+  }
+
+  function trackCheckoutClick(event) {
+    if (typeof window.fbq !== "function") return;
+    window.fbq("track", "InitiateCheckout", {
+      content_name: "RESPIRA: Sal de Deudas",
+      value: 17,
+      currency: "USD"
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", trackViewContent, { once: true });
+  } else {
+    trackViewContent();
+  }
+
+  document.addEventListener("click", function (event) {
+    var link = event.target && event.target.closest ? event.target.closest('a[href*="pay.hotmart.com"]') : null;
+    if (link) trackCheckoutClick(event);
+  }, { passive: true });
+})();
+</script>
+<!-- END RESPIRA_META_EVENTS_V1 -->
 </body>
 </html>
